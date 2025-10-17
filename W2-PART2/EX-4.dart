@@ -41,7 +41,7 @@ class ProductOrder {
 
   @override
   String toString() {
-    return '${this.product.productName}  \$${this.product.price}  ${this.orderQty}  ${subTotalPrice}';
+    return '${this.product.productName}\t\t\$${this.product.price}\t\t${this.orderQty}\t\t\$${subTotalPrice}';
   }
 }
 
@@ -58,28 +58,47 @@ class Order {
   Order.pickUp({required this.customer, required this.productOrders}) : this.method = deliverMethod.PICKUP;
 
   //add product to order list 
-  void addProductOrder(Product product, int qty) {
-    if(qty <= product.quantity){
-      this.productOrders.add(ProductOrder(product: product, orderQty: qty));
-      product.quantity -= qty;
-    }else{
-      throw Exception('The product ${product.productName} is unavaliable.');
+    void addProductOrder(Product product, int qty) {
+      if(qty <= product.quantity){
+        this.productOrders.add(ProductOrder(product: product, orderQty: qty));
+        product.quantity -= qty;
+      }else{
+        throw Exception('The product ${product.productName} is unavaliable.');
+      }
+    }
+      //method to compute total amount
+    double totalAmount() {
+      double totalPrice = 0;
+      for(var product in this.productOrders) {
+        totalPrice += product.subTotalPrice;
+      }
+      return totalPrice;
+    }
+
+    //method to print all the order detail
+    void displayOrderDetail() {
+      print('================Products order Detail================');
+      print('Cust name: ${customer.name}');
+      print('Order products:');
+      for(var po in productOrders) {
+        print(po);
+      }
+      print('Total Price: \$${totalAmount()}');
     }
   }
 
-  //method to compute total amount
-  double totalAmount() {
-    double totalPrice = 0;
-    for(var product in this.productOrders) {
-      totalPrice += product.subTotalPrice;
-    }
-    return totalPrice;
-  }
 
-  void displayOrderDetail() {
-    for(var order in this.productOrders){
-      print(order);
-    }
-  }
+void main() {
+    Product p1 = Product(productName: 'apple', price: 1.5, quantity: 10);
+    Product p2 = Product(productName: 'banana', price: 2.5, quantity: 10);
+    Product p3 = Product(productName: 'durain', price: 5, quantity: 10);
+
+    Customer c1 = Customer(name: 'gechty', contact: '088567890');
+    Order o1 = Order(customer: c1, productOrders: []);
+    o1.addProductOrder(p1, 1);
+    o1.addProductOrder(p2, 2);
+    o1.addProductOrder(p3, 1);
+
+    o1.displayOrderDetail();
 }
 
