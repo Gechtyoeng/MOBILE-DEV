@@ -9,7 +9,7 @@ class Robot {
 
   @override
   String toString() {
-    return "($x, $y)";
+    return "Position($x, $y), Direction: ${direction.name}";
   }
   
   //handle direction when turn left
@@ -66,7 +66,7 @@ class Robot {
   }
 
   //handle instruction
-  void handleInstruction(String symbol){
+  void handleInstruction(String symbol){  //should change to a list of actions
     for(var i = 0; i < symbol.length; i++){
       switch(symbol[i]) {
         case 'A':
@@ -84,22 +84,6 @@ class Robot {
 
 }
 void main() {
-  // // Initial position {7, 3} and facing north
-  // int x = 7;
-  // int y = 3;
-  // Direction direction = Direction.north;
-
-  // // Example instruction sequence
-  // const instructions = "RAALAL";
-
-  // // Process the instructions and get the final position and direction
-  
-
-  // // Print the final position and direction
-  // print("Final position:  ");
-  // print("Facing:  ");
   Robot robot1 = Robot(7, 3, Direction.north);
-  print('The final position is $robot1');
-  print('Facing: ${robot1.direction.name}');
-
+  print(robot1);
 }

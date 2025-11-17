@@ -14,6 +14,7 @@ class Answer {
   Answer({required this.question, required this.answerChioce});
 
   //check if the answer is correct
+  //this function can pass the Question as the parameter instead
   bool isGoodAnswer () => this.answerChioce == this.question.goodChoice;
 }
 

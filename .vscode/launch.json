@@ -1,0 +1,39 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "MOBILE-DEV-ASS",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "W4-FLUTTER-ASS",
+            "cwd": "W4-FLUTTER-ASS",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "W4-FLUTTER-ASS (profile mode)",
+            "cwd": "W4-FLUTTER-ASS",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "W4-FLUTTER-ASS (release mode)",
+            "cwd": "W4-FLUTTER-ASS",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "QUIZ-MINI-PROJECT",
+            "cwd": "W3\\QUIZ-MINI-PROJECT",
+            "request": "launch",
+            "type": "dart"
+        }
+    ]
+}
