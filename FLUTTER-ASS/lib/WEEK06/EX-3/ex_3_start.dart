@@ -25,7 +25,7 @@ class _ImageGalleryState extends State<ImageGallery> {
       currentImage = (currentImage + 1) % widget.images.length;
     });
   }
-
+  
   void handlePrevious() {
     setState(() {
       currentImage = (currentImage - 1 + widget.images.length) % widget.images.length;
