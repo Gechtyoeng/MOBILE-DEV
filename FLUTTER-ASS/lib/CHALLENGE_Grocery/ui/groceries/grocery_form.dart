@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../../models/grocery.dart';
 
 class NewItem extends StatefulWidget {
@@ -12,7 +11,6 @@ class NewItem extends StatefulWidget {
 }
 
 class _NewItemState extends State<NewItem> {
-
   // Default settings
   static const defautName = "New grocery";
   static const defaultQuantity = 1;
@@ -43,10 +41,15 @@ class _NewItemState extends State<NewItem> {
 
   void onReset() {
     // Will be implemented later - Reset all fields to the initial values
+    _nameController.text = defautName;
+    _quantityController.text = defaultQuantity.toString();
+    _selectedCategory = defaultCategory;
   }
 
   void onAdd() {
     // Will be implemented later - Create and return the new grocery
+    final newItem = Grocery(id: DateTime.now().toString(), name: _nameController.text, quantity: int.tryParse(_quantityController.text) ?? 1, category: _selectedCategory);
+    Navigator.pop(context, newItem);
   }
 
   @override
@@ -76,7 +79,20 @@ class _NewItemState extends State<NewItem> {
                 Expanded(
                   child: DropdownButtonFormField<GroceryCategory>(
                     initialValue: _selectedCategory,
-                    items: [  ],
+                    items: [
+                      ...GroceryCategory.values.map((g) {
+                        return DropdownMenuItem(
+                          value: g,
+                          child: Row(
+                            children: [
+                              Container(width: 10, height: 10, decoration: BoxDecoration(color: g.color)),
+                              const SizedBox(width: 5),
+                              Text(g.label),
+                            ],
+                          ),
+                        );
+                      }),
+                    ],
                     onChanged: (value) {
                       if (value != null) {
                         setState(() {
@@ -93,10 +109,7 @@ class _NewItemState extends State<NewItem> {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 TextButton(onPressed: onReset, child: const Text('Reset')),
-                ElevatedButton(
-                  onPressed: onAdd,
-                  child: const Text('Add Item'),
-                ),
+                ElevatedButton(onPressed: onAdd, child: const Text('Add Item')),
               ],
             ),
           ],

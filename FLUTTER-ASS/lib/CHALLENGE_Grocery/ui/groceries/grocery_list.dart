@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../models/grocery.dart';
 import '../../data/mock_grocery_repository.dart';
+import '../groceries/grocery_form.dart';
 
 class GroceryList extends StatefulWidget {
   const GroceryList({super.key});
@@ -10,20 +11,28 @@ class GroceryList extends StatefulWidget {
 }
 
 class _GroceryListState extends State<GroceryList> {
-  void onCreate() {
-    // TODO-4 - Navigate to the form screen using the Navigator push
+  List<Grocery> myGroceryList = dummyGroceryItems;
+  void onCreate() async {
+    //Navigate to the form screen using the Navigator push
+    final newGrocery = await Navigator.push<Grocery>(context, MaterialPageRoute(builder: (context) => const NewItem()));
+
+    if (newGrocery != null) {
+      setState(() {
+        myGroceryList.add(newGrocery);
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     Widget content = const Center(child: Text('No items added yet.'));
 
-    if (dummyGroceryItems.isNotEmpty) {
+    if (myGroceryList.isNotEmpty) {
       //Display groceries with an Item builder and  LIst Tile
       content = ListView.builder(
-        itemCount: dummyGroceryItems.length,
+        itemCount: myGroceryList.length,
         itemBuilder: (content, index) {
-          return GroceryCard(myGrocery: dummyGroceryItems[index],);
+          return GroceryCard(myGrocery: myGroceryList[index]);
         },
       );
     }
@@ -31,7 +40,7 @@ class _GroceryListState extends State<GroceryList> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Your Groceries'),
-        actions: [IconButton(onPressed: () => {}, icon: const Icon(Icons.add))],
+        actions: [IconButton(onPressed: onCreate, icon: const Icon(Icons.add))],
       ),
       body: content,
     );
